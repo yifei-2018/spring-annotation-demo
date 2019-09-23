@@ -4,23 +4,21 @@ import com.yifei.spring.annotation.web.constant.CmnConstant;
 import com.yifei.spring.annotation.web.model.JsonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author yifei
  * @date 2019/9/19
  */
 @RequestMapping("/study")
-@Controller
+@RestController
 public class StudyController {
     private static final Logger logger = LoggerFactory.getLogger(StudyController.class);
 
     @RequestMapping(value = "/show/{data}", method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
     public JsonResult show(@PathVariable String data) {
         JsonResult<String> jsonResult = new JsonResult<>();
         jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
