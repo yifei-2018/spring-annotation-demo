@@ -11,6 +11,7 @@
     <modules>
         <module>annotation-web</module>
         <module>annotation-service</module>
+        <module>annotation-api</module>
     </modules>
 
     <properties>
