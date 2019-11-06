@@ -9,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 拦截器配置类
@@ -36,6 +38,23 @@ public class WebConfig extends WebMvcConfigurationSupport {
         registry.addInterceptor(diyOneInterceptor).addPathPatterns("/**").order(1);
         registry.addInterceptor(diyTwoInterceptor).addPathPatterns("/**").order(2);
         super.addInterceptors(registry);
-        logger.info("拦截器注册：【{},{}】", diyOneInterceptor.getClass().getName(), diyTwoInterceptor.getClass().getName());
+        logger.info("拦截器注册：【{}】", getClassName(diyOneInterceptor, diyTwoInterceptor));
+    }
+
+    /**
+     * 获取类名
+     *
+     * @param args 参数
+     * @return List<String>
+     */
+    private List<String> getClassName(Object... args) {
+        List<String> resultList = new ArrayList<>();
+        for (Object arg : args) {
+            if (arg == null) {
+                continue;
+            }
+            resultList.add(arg.getClass().getName());
+        }
+        return resultList;
     }
 }
