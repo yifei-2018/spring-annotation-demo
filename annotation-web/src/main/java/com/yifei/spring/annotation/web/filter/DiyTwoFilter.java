@@ -18,20 +18,26 @@ import java.io.IOException;
 @Order(2)
 public class DiyTwoFilter implements Filter {
     private static final Logger logger = LoggerFactory.getLogger(DiyTwoFilter.class);
+    /**
+     * 过滤器配置
+     */
+    private FilterConfig filterConfig;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        logger.info("*****【{}】 init*****", this.getClass().getSimpleName());
+        this.filterConfig = filterConfig;
+        logger.info("*****过滤器【{}】 init*****", this.filterConfig.getFilterName());
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("*****【{}】 doFilter*****", this.getClass().getSimpleName());
+        logger.info("*****过滤器【{}】 doFilter 客户端向Servlet发送的请求被拦截*****", filterConfig.getFilterName());
         filterChain.doFilter(servletRequest, servletResponse);
+        logger.info("*****过滤器【{}】 doFilter Servlet向客户端发送的响应被拦截*****", filterConfig.getFilterName());
     }
 
     @Override
     public void destroy() {
-        logger.info("*****【{}】 destroy*****", this.getClass().getSimpleName());
+        logger.info("*****过滤器【{}】 destroy*****", filterConfig.getFilterName());
     }
 }
