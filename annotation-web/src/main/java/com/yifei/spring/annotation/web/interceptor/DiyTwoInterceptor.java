@@ -1,5 +1,6 @@
 package com.yifei.spring.annotation.web.interceptor;
 
+import com.yifei.spring.annotation.web.util.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -29,27 +30,26 @@ public class DiyTwoInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("*****拦截器【{}】 preHandle*****", interceptorName);
-        request.setAttribute("startTimeMillis", System.currentTimeMillis());
+        logger.info("*****轨迹号【{}】 拦截器【{}】 preHandle*****", RequestUtils.getAndIncreaseTrackNum(request), interceptorName);
+        RequestUtils.setStartTime(request);
         return super.preHandle(request, response, handler);
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        long startTimeMillis = (long) request.getAttribute("startTimeMillis");
-        logger.info("*****拦截器【{}】 postHandle 【{}】耗时【{}】ms*****", interceptorName, request.getServletPath(), System.currentTimeMillis() - startTimeMillis);
+        logger.info("*****轨迹号【{}】 拦截器【{}】 postHandle 【{}】耗时【{}】ms*****", RequestUtils.getAndIncreaseTrackNum(request), interceptorName, RequestUtils.getServletPath(request), RequestUtils.takeUpTime(request));
         super.postHandle(request, response, handler, modelAndView);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        logger.info("*****拦截器【{}】 afterCompletion*****", interceptorName);
+        logger.info("*****轨迹号【{}】 拦截器【{}】 afterCompletion*****", RequestUtils.getAndIncreaseTrackNum(request), interceptorName);
         super.afterCompletion(request, response, handler, ex);
     }
 
     @Override
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("*****拦截器【{}】 afterConcurrentHandlingStarted*****", interceptorName);
+        logger.info("*****轨迹号【{}】 拦截器【{}】 afterConcurrentHandlingStarted*****", RequestUtils.getAndIncreaseTrackNum(request), interceptorName);
         super.afterConcurrentHandlingStarted(request, response, handler);
     }
 }

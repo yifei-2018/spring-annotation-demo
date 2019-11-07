@@ -1,5 +1,6 @@
 package com.yifei.spring.annotation.web.filter;
 
+import com.yifei.spring.annotation.web.util.RequestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -31,9 +32,9 @@ public class DiyOneFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        logger.info("*****过滤器【{}】 doFilter 客户端向Servlet发送的请求被拦截*****", filterConfig.getFilterName());
+        logger.info("*****轨迹号【{}】 过滤器【{}】 doFilter 客户端向Servlet发送的请求被拦截*****", RequestUtils.getAndIncreaseTrackNum(servletRequest), filterConfig.getFilterName());
         filterChain.doFilter(servletRequest, servletResponse);
-        logger.info("*****过滤器【{}】 doFilter Servlet向客户端发送的响应被拦截*****", filterConfig.getFilterName());
+        logger.info("*****轨迹号【{}】 过滤器【{}】 doFilter Servlet向客户端发送的响应被拦截*****", RequestUtils.getAndIncreaseTrackNum(servletRequest), filterConfig.getFilterName());
     }
 
     @Override
