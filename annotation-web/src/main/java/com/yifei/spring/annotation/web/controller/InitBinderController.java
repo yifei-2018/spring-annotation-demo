@@ -9,14 +9,11 @@ import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +26,14 @@ import java.util.Map;
 @RequestMapping("/initBinder")
 public class InitBinderController {
     private static final Logger logger = LoggerFactory.getLogger(InitBinderController.class);
+    /**
+     * 局部异常
+     */
+    private static final String EXCEPTION_LOCAL = "IllegalArgumentException";
+    /**
+     * 全局异常
+     */
+    private static final String EXCEPTION_ALL = "NullPointerException";
 
     /**
      * 局部初始化绑定器
@@ -58,15 +63,31 @@ public class InitBinderController {
      * 局部设置Model
      *
      * @param request 请求
-     * @param model   model
      */
     @ModelAttribute("user")
-    private User setModelAttribute(HttpServletRequest request, Model model) {
+    private User setModelAttribute(HttpServletRequest request) {
         logger.info("*****轨迹号【{}】 InitBinderController:【{}】setModelAttribute*****", RequestUtils.getAndIncreaseTrackNum(request), this.getClass().getTypeName());
         User user = new User();
         user.setName("毅飞");
         user.setAge(27);
         return user;
+    }
+
+    /**
+     * 局部异常处理
+     *
+     * @param request  请求
+     * @param response 响应
+     * @return JsonResult
+     */
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    @ResponseBody
+    public JsonResult handleException(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
+        logger.info("*****轨迹号【{}】 InitBinderController:【{}】handleException*****异常：", RequestUtils.getAndIncreaseTrackNum(request), this.getClass().getTypeName(), throwable);
+        JsonResult<String> jsonResult = new JsonResult<>();
+        jsonResult.setStatus(CmnConstant.FAIL_STATUS);
+        jsonResult.setData(throwable.getMessage());
+        return jsonResult;
     }
 
     /**
@@ -122,18 +143,41 @@ public class InitBinderController {
     /**
      * ModelAttribute注解测试
      *
-     * @param user 用户
+     * @param user        用户
+     * @param allUserName 全局用户名称
      * @return JsonResult
      */
     @RequestMapping("/modelAttributeTest")
     @ResponseBody
-    public JsonResult modelAttributeTest(@ModelAttribute("user") User user) {
-        Map<String, User> dataMap = new HashMap<>(2);
+    public JsonResult modelAttributeTest(@ModelAttribute("user") User user, @ModelAttribute("all_userName") String allUserName) {
+        Map<String, Object> dataMap = new HashMap<>(2);
         dataMap.put("user", user);
+        dataMap.put("all_userName", allUserName);
 
         JsonResult<Map> jsonResult = new JsonResult<>();
         jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
         jsonResult.setData(dataMap);
+        return jsonResult;
+    }
+
+    /**
+     * ExceptionHandler注解测试
+     *
+     * @return JsonResult
+     */
+    @RequestMapping("/exceptionHandlerTest")
+    @ResponseBody
+    public JsonResult exceptionHandlerTest(@RequestParam("exceptionClass") String exceptionClass) {
+        if (EXCEPTION_LOCAL.equals(exceptionClass)) {
+            throw new IllegalArgumentException("抛出局部异常！");
+        }
+        if (EXCEPTION_ALL.equals(exceptionClass)) {
+            throw new NullPointerException("抛出全局异常！");
+        }
+
+        JsonResult<String> jsonResult = new JsonResult<>();
+        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
+        jsonResult.setData("");
         return jsonResult;
     }
 

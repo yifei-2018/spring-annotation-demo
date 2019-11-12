@@ -51,7 +51,7 @@ public class DiyControllerAdvice {
     @ModelAttribute
     private void setModelAttribute(HttpServletRequest request, Model model) {
         logger.info("*****轨迹号【{}】 ControllerAdvice:【{}】setModelAttribute*****", RequestUtils.getAndIncreaseTrackNum(request), this.getClass().getTypeName());
-        model.addAttribute("userId", "毅飞");
+        model.addAttribute("all_userName", "毅飞");
     }
 
     /**
