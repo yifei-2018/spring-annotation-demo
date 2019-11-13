@@ -10,17 +10,34 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>annotation-web</module>
-        <module>annotation-service</module>
+        <module>annotation-provider</module>
         <module>annotation-api</module>
+        <module>annotation-common</module>
     </modules>
+
+    <!--仓库管理-->
+    <repositories>
+        <!--阿里仓库-->
+        <repository>
+            <id>maven-ali</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <properties>
         <!--指定具体编码方式-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-boot.version>2.1.3.RELEASE</spring-boot.version>
         <lombok.version>1.18.8</lombok.version>
+        <fastjson.version>1.2.60</fastjson.version>
+        <dubbo.version>2.7.1</dubbo.version>
+        <curator.version>4.0.1</curator.version>
     </properties>
 
+    <!--依赖管理-->
     <dependencyManagement>
         <dependencies>
             <!--spring-boot-->
@@ -40,6 +57,27 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!--dubbo-->
+            <dependency>
+                <groupId>org.apache.dubbo</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+            <!--Curator 4.*.*十分依赖Zookeeper3.5.*服务版本-->
+            <!--Curator 4.*.*在软兼容模式下支持Zookeeper3.4.*服务版本，但需排除自身zookeeper依赖，同时必须加入Zookeeper3.4.*的依赖（软兼容模式，一些3.4.*不具备的新特性是不能使用的）-->
+            <!--Curator2.*.*是支持Zookeeper3.4.*服务版本-->
+            <!--zk客户端-->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
