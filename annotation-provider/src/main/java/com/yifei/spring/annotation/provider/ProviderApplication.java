@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
@@ -12,6 +13,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @date 2019/11/14
  */
 @SpringBootApplication
+@ImportResource(locations = {"classpath:dubbo-provider.xml"})
 public class ProviderApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(ProviderApplication.class);

@@ -5,6 +5,7 @@ import com.yifei.spring.annotation.api.model.BookQryParam;
 import com.yifei.spring.annotation.api.service.StudyService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,6 +22,6 @@ public class StudyServiceImpl implements StudyService {
      */
     @Override
     public List<Book> getBookList(BookQryParam qryParam) {
-        return null;
+        return Collections.emptyList();
     }
 }

@@ -30,12 +30,77 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <!--commons-lang3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <!--dubbo-->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-aop</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-beans</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-core</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-expression</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>snakeyaml</artifactId>
+                    <groupId>org.yaml</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>spring-context</artifactId>
+                    <groupId>org.springframework</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--Curator 4.*.*十分依赖Zookeeper3.5.*服务版本-->
+        <!--Curator 4.*.*在软兼容模式下支持Zookeeper3.4.*服务版本，但需排除自身zookeeper依赖，同时必须加入Zookeeper3.4.*的依赖（软兼容模式，一些3.4.*不具备的新特性是不能使用的）-->
+        <!--Curator2.*.*是支持Zookeeper3.4.*服务版本-->
+        <!--zk客户端-->
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>3.4.14</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>slf4j-log4j12</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <!--二方库-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.yifei.spring</groupId>-->
-        <!--            <artifactId>annotation-service</artifactId>-->
-        <!--            <version>${parent.version}</version>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.yifei.spring</groupId>
+            <artifactId>annotation-api</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

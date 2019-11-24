@@ -65,9 +65,6 @@ public class DiyControllerAdvice {
     @ResponseBody
     public JsonResult handleException(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
         logger.info("*****轨迹号【{}】 ControllerAdvice:【{}】handleException*****异常：", RequestUtils.getAndIncreaseTrackNum(request), this.getClass().getTypeName(), throwable);
-        JsonResult<String> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.FAIL_STATUS);
-        jsonResult.setData("The system is out of order!");
-        return jsonResult;
+        return new JsonResult<>(CmnConstant.FAIL_STATUS, "", "The system is out of order!");
     }
 }

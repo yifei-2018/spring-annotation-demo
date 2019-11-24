@@ -21,14 +21,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
     <!--dubbo应用名称-->
-    <dubbo:application name="annotation-provider" owner="yifei" organization="www.yifei.com"/>
+    <dubbo:application name="annotation-consumer" owner="yifei" organization="www.yifei.com"/>
     <!--注册中心-->
     <dubbo:registry address="zookeeper://localhost:2181"/>
-    <!--协议，暴露服务-->
-    <dubbo:protocol name="dubbo" port="20880"/>
-    <!--全局provider设置-->
-    <dubbo:provider version="1.0.0" retries="2" timeout="2000"/>
+    <!--全局consumer设置-->
+    <dubbo:consumer check="false" version="1.0.0"/>
 
-    <!--声明StudyService接口(注：接口实现通过@Service注入)-->
-    <dubbo:service interface="com.yifei.spring.annotation.api.service.StudyService" ref="studyService"/>
+    <!--声明StudyService接口-->
+    <dubbo:reference id="studyService" interface="com.yifei.spring.annotation.api.service.StudyService"/>
 </beans>

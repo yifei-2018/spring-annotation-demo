@@ -76,18 +76,16 @@ public class InitBinderController {
     /**
      * 局部异常处理
      *
-     * @param request  请求
-     * @param response 响应
+     * @param request   请求
+     * @param response  响应
+     * @param throwable 异常
      * @return JsonResult
      */
     @ExceptionHandler(value = {IllegalArgumentException.class})
     @ResponseBody
     public JsonResult handleException(HttpServletRequest request, HttpServletResponse response, Throwable throwable) {
         logger.info("*****轨迹号【{}】 InitBinderController:【{}】handleException*****异常：", RequestUtils.getAndIncreaseTrackNum(request), this.getClass().getTypeName(), throwable);
-        JsonResult<String> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.FAIL_STATUS);
-        jsonResult.setData(throwable.getMessage());
-        return jsonResult;
+        return new JsonResult<>(CmnConstant.FAIL_STATUS, "", throwable.getMessage());
     }
 
     /**
@@ -99,10 +97,7 @@ public class InitBinderController {
     @RequestMapping("/stringTest")
     @ResponseBody
     public JsonResult stringTest(String str) {
-        JsonResult<String> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
-        jsonResult.setData("时间串：" + str);
-        return jsonResult;
+        return new JsonResult<>("时间串：" + str);
     }
 
     /**
@@ -114,10 +109,7 @@ public class InitBinderController {
     @RequestMapping("/dateTest")
     @ResponseBody
     public JsonResult dateTest(Date date) {
-        JsonResult<String> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
-        jsonResult.setData("时间串：" + date);
-        return jsonResult;
+        return new JsonResult<>("时间串：" + date);
     }
 
     /**
@@ -133,11 +125,7 @@ public class InitBinderController {
         Map<String, User> dataMap = new HashMap<>(2);
         dataMap.put("u1", u1);
         dataMap.put("u2", u2);
-
-        JsonResult<Map> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
-        jsonResult.setData(dataMap);
-        return jsonResult;
+        return new JsonResult<>(dataMap);
     }
 
     /**
@@ -153,11 +141,7 @@ public class InitBinderController {
         Map<String, Object> dataMap = new HashMap<>(2);
         dataMap.put("user", user);
         dataMap.put("all_userName", allUserName);
-
-        JsonResult<Map> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
-        jsonResult.setData(dataMap);
-        return jsonResult;
+        return new JsonResult<>(dataMap);
     }
 
     /**
@@ -174,11 +158,7 @@ public class InitBinderController {
         if (EXCEPTION_ALL.equals(exceptionClass)) {
             throw new NullPointerException("抛出全局异常！");
         }
-
-        JsonResult<String> jsonResult = new JsonResult<>();
-        jsonResult.setStatus(CmnConstant.SUCCESS_STATUS);
-        jsonResult.setData("");
-        return jsonResult;
+        return new JsonResult<>("ExceptionHandler注解测试");
     }
 
     @Getter
