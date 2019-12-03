@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * initBinder、ModelAttribute、ExceptionHandler注解测试
+ *
  * @author yifei
  * @date 2019/11/7
  */
@@ -90,6 +92,9 @@ public class InitBinderController {
 
     /**
      * 字符串测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/stringTest?str= 字符串 测试 ">http://localhost:8081/annotation-web/initBinder/stringTest?str= 字符串 测试 </a></li>
+     * </ul>
      *
      * @param str 字符串
      * @return JsonResult
@@ -97,11 +102,15 @@ public class InitBinderController {
     @RequestMapping("/stringTest")
     @ResponseBody
     public JsonResult stringTest(String str) {
-        return new JsonResult<>("时间串：" + str);
+        return new JsonResult<>("字符串：【" + str + "】");
     }
 
     /**
      * 日期测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/dateTest?date=2019-12-03">http://localhost:8081/annotation-web/initBinder/dateTest?date=2019-12-03</a></li>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/dateTest?date=2019-12-03 01:10:00">http://localhost:8081/annotation-web/initBinder/dateTest?date=2019-12-03 01:10:00</a></li>
+     * </ul>
      *
      * @param date 日期
      * @return JsonResult
@@ -109,11 +118,15 @@ public class InitBinderController {
     @RequestMapping("/dateTest")
     @ResponseBody
     public JsonResult dateTest(Date date) {
-        return new JsonResult<>("时间串：" + date);
+        return new JsonResult<>("时间串：【" + date + "】");
     }
 
     /**
      * 对象测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/objTest?u1.name=1111&u1.age=11&u2.name=222&u2.age=22">http://localhost:8081/annotation-web/initBinder/objTest?u1.name=1111&u1.age=11&u2.name=222&u2.age=22</a></li>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/objTest?u1.id=1&u1.name=demoUser&addr.id=10&addr.name=北京市海淀区">http://localhost:8081/annotation-web/initBinder/objTest?u1.id=1&u1.name=demoUser&addr.id=10&addr.name=北京市海淀区</a></li>
+     * </ul>
      *
      * @param u1 用户1
      * @param u2 用户2
@@ -130,6 +143,9 @@ public class InitBinderController {
 
     /**
      * ModelAttribute注解测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/modelAttributeTest">http://localhost:8081/annotation-web/initBinder/modelAttributeTest</a></li>
+     * </ul>
      *
      * @param user        用户
      * @param allUserName 全局用户名称
@@ -146,6 +162,10 @@ public class InitBinderController {
 
     /**
      * ExceptionHandler注解测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/exceptionHandlerTest?exceptionClass=IllegalArgumentException">http://localhost:8081/annotation-web/initBinder/exceptionHandlerTest?exceptionClass=IllegalArgumentException</a></li>
+     *     <li><a href="http://localhost:8081/annotation-web/initBinder/exceptionHandlerTest?exceptionClass=NullPointerException">http://localhost:8081/annotation-web/initBinder/exceptionHandlerTest?exceptionClass=NullPointerException</a></li>
+     * </ul>
      *
      * @return JsonResult
      */

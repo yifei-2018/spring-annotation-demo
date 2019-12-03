@@ -17,6 +17,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
+ * ControllerAdvice、InitBinder、ModelAttribute、ExceptionHandler注解测试
+ *
  * @author yifei
  * @date 2019/9/23
  */

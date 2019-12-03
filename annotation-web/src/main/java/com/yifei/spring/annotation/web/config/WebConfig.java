@@ -18,7 +18,7 @@ import java.util.List;
  * @author yifei
  * @date 2019/11/7
  */
-@Configuration
+@Configuration("webConfig")
 public class WebConfig extends WebMvcConfigurationSupport {
 
     private static final Logger logger = LoggerFactory.getLogger(WebConfig.class);

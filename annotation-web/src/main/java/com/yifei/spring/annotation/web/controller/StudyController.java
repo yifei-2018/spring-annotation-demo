@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
+ * RestController、PathVariable等注解测试
+ *
  * @author yifei
  * @date 2019/9/19
  */
@@ -30,6 +32,9 @@ public class StudyController {
 
     /***
      * PathVariable注解测试
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/study/show/123">http://localhost:8081/annotation-web/study/show/123</a></li>
+     * </ul>
      *
      * @param data 占位符
      * @return JsonResult
@@ -41,6 +46,9 @@ public class StudyController {
 
     /**
      * 检索书籍
+     * <ul>
+     *     <li><a href="http://localhost:8081/annotation-web/study/searchBook">http://localhost:8081/annotation-web/study/searchBook</a></li>
+     * </ul>
      *
      * @param request 请求
      * @return JsonResult

@@ -52,4 +52,8 @@ public class DiyOneInterceptor extends HandlerInterceptorAdapter {
         logger.info("*****轨迹号【{}】 拦截器【{}】 afterConcurrentHandlingStarted*****", RequestUtils.getAndIncreaseTrackNum(request), interceptorName);
         super.afterConcurrentHandlingStarted(request, response, handler);
     }
+
+    public String getInterceptorName() {
+        return interceptorName;
+    }
 }
